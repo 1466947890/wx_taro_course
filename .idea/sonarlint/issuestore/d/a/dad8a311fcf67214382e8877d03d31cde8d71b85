@@ -1,0 +1,7 @@
+
+q
+java:S1450"[Remove the "objectMapper" field and declare it as a local variable in the relevant methods.(¹„Á¨
+P
+java:S4719":Replace Charset.forName() call with StandardCharsets.UTF_8(ö€¹Ø
+F
+java:S1068"0Remove this unused "objectMapper" private field.(¹„Á¨

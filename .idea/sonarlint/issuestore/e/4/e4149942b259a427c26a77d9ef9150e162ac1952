@@ -1,0 +1,11 @@
+
+o
+java:S2293#"YReplace the type specification in this constructor call with the diamond operator ("<>").(é‡ø”
+y
+java:S1128"^Remove this unused import 'com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper'.(à¡òúÿÿÿÿ
+d
+java:S1128"IRemove this unused import 'com.baomidou.mybatisplus.core.metadata.IPage'.(¯à½ıÿÿÿÿ
+I
+java:S1128"4Remove this unused import 'com.beizhi.entity.Major'.(•œÄ<
+f
+java:S1128"KRemove this unused import 'org.springframework.security.core.parameters.P'.(Æ­Åıÿÿÿÿ

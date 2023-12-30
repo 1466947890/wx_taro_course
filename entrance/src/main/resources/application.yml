@@ -1,0 +1,38 @@
+server:
+  port: 9092
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 1GB
+      max-request-size: 5GB
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/course?useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: course
+    password: 123456
+  redis:
+    database: 2
+    port: 6379
+    host: localhost
+  jackson:
+    default-property-inclusion: non-null
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+wx:
+  appid: wx1999088845a503e6
+  secret: 7180d8766e5b45163cade18a14d08cb6
+
+files:
+  upload:
+    path: D:\idea_workspace\正在开发\temp\
+
+aliyun:
+  vod:
+    file:
+      keyid: LTAI5tBRiswuHwsKsSV2b7RA
+      keysecret: Mi8vWFn0lGdLKjh04icbvZRprfKFoT
+

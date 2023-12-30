@@ -1,0 +1,23 @@
+
+Y
+java:S1874"DRemove this use of "WebSecurityConfigurerAdapter"; it is deprecated.(•Ô¨
+C
+java:S1185"(Remove this method to simply inherit it.(Î…ü†ýÿÿÿÿ
+V	java:S125*"<This block of commented-out lines of code should be removed.(ÉÐÁÙøÿÿÿÿ
+l
+java:S1128"QRemove this unused import 'org.springframework.context.annotation.Configuration'.(¬²Úäþÿÿÿÿ
+‘
+java:S1128"vRemove this unused import 'org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration'.(Æ­¹¬øÿÿÿÿ
+œ
+java:S1128"€Remove this unused import 'org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer'.(Ôñ¡¾ýÿÿÿÿ
+x
+java:S1128
+"bRemove this unused import 'org.springframework.web.servlet.config.annotation.InterceptorRegistry'.(¯¶ø±
+z
+java:S1128"_Remove this unused import 'org.springframework.web.servlet.config.annotation.WebMvcConfigurer'.(’µ¥Êÿÿÿÿÿ
+L
+java:S1128"6Remove this unused import 'javax.annotation.Resource'.(î¾Ì—
+F
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ
+F
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ

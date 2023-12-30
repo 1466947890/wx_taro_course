@@ -1,0 +1,17 @@
+
+n
+java:S1104"YMake ACCESS_KEY_ID a static final constant or non-public and provide accessors if needed.(§³·d
+x
+java:S1104"]Make ACCESS_KEY_SECRET a static final constant or non-public and provide accessors if needed.(¶‚Ðßýÿÿÿÿ
+H
+java:S1444"3Make this "public static ACCESS_KEY_ID" field final(§³·d
+R
+java:S1444"7Make this "public static ACCESS_KEY_SECRET" field final(¶‚Ðßýÿÿÿÿ
+m
+java:S3008"XRename this field "ACCESS_KEY_ID" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§³·d
+w
+java:S3008"\Rename this field "ACCESS_KEY_SECRET" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¶‚Ðßýÿÿÿÿ
+Q
+java:S2696"6Make the enclosing method "static" or remove this set.(¿òÇÄùÿÿÿÿ
+Q
+java:S2696"6Make the enclosing method "static" or remove this set.(ÎÂÇúùÿÿÿÿ

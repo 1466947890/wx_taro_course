@@ -1,0 +1,22 @@
+
+`	java:S112@"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+i
+java:S2259;"NA "NullPointerException" could be thrown; "originalFilename" is nullable here.(ùúŠ°ıÿÿÿÿ
+_
+java:S2583X"DChange this condition so that it does not always evaluate to "false"(ı¥Ìûÿÿÿÿ
+E	java:S106O"+Replace this use of System.out by a logger.(¬ìÃ§ıÿÿÿÿ
+V	java:S125R"<This block of commented-out lines of code should be removed.(¿äìÜşÿÿÿÿ
+V	java:S125c"<This block of commented-out lines of code should be removed.(¿äìÜşÿÿÿÿ
+L
+java:S1751z"6Remove this "return" statement or make it conditional.(š©øá
+T
+java:S1854“"8Remove this useless assignment to local variable "data".(ÀâÖøÿÿÿÿ
+E
+java:S1481“")Remove this unused "data" local variable.(ÀâÖøÿÿÿÿ
+R	java:S125—"<This block of commented-out lines of code should be removed.(‚ğæå
+M
+java:S1751š"6Remove this "return" statement or make it conditional.(‹¯òÿ
+Z
+java:S1128"DRemove this unused import 'com.aliyuncs.exceptions.ClientException'.(ò²»Ê
+U
+java:S1128":Remove this unused import 'com.beizhi.entity.ChapterTask'.(ğ¥ò°ûÿÿÿÿ
