@@ -1,0 +1,45 @@
+.Index {
+  .btn {
+    position: fixed;
+    right: 70px;
+    bottom: 70px;
+    z-index: 5;
+  }
+  .video_box {
+    height: auto;
+    .components-page {
+      height: 100%;
+      .video {
+        width: 100%;
+      }
+    }
+  }
+  .tabs_box {
+    overflow: hidden;
+    .tabs_container {
+      height: 100%;
+      .at-tabs-pane {
+        box-sizing: border-box;
+        padding: 25px;
+      }
+    }
+    .examine_box {
+    }
+
+    .examine_type {
+      font-size: 25px;
+      margin-bottom: 15px;
+      color: #9E9E9E;
+    }
+    .examine_title{
+      padding: 25px;
+    }
+    .exmaine_btn {
+      margin-top: 15px;
+    }
+  }
+
+  .modal_content {
+    min-height: 10px;
+  }
+}

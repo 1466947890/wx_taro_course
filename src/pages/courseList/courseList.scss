@@ -1,0 +1,21 @@
+@import "~taro-ui/dist/style/components/list.scss";
+@import "~taro-ui/dist/style/components/icon.scss";
+
+.courseListIndex {
+  padding: 15px 25px;
+  height: 100%;
+  .at-list {
+    background-color: transparent;
+    overflow-y: auto;
+    .at-list-item {
+      border-radius: 20px;
+      margin-bottom: 20px;
+      background-color: #fff;
+    }
+  }
+  .loadMore {
+    .at-load-more__cnt {
+      background-color: #fff;
+    }
+  }
+}

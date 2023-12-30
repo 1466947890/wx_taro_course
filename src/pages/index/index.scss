@@ -1,0 +1,85 @@
+@import "~taro-ui/dist/style/components/button.scss"; // 按需引入
+@import "~taro-ui/dist/style/components/flex.scss";
+@import "~taro-ui/dist/style/components/icon.scss";
+@import "~taro-ui/dist/style/components/button.scss";
+
+
+
+.index {
+  height: 100%;
+  overflow-y: auto;
+  .course{
+    padding: 20px;
+  }
+  .at-row {
+    padding-bottom: 20px;
+    .swiper-image-box {
+      width: 100%;
+      .lunboImag {
+        width: 100%;
+      }
+    }
+  }
+
+  .course-trends-title {
+    border-left: 15px #1fb641 solid;
+    padding-left: 15px;
+    .more{
+      float: right;
+      font-size: small;
+    }
+  }
+  .course-trends-container {
+    .course-trends-container-box {
+      background-color: #ffff;
+      text-align: center;
+      margin: 15px 50px;
+      border-radius: 15px;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .swiper-trends {
+        width: 100%;
+        height: 100%;
+        swiper-item {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
+    .course-recommend-container-box {
+      background-color: #ffff;
+      margin: 30px 50px;
+      border-radius: 15px;
+      height: 125px;
+      padding: 15px 15px;
+      display: flex;
+      .course-recommend-Image-box{
+        height: 100%;
+        flex: 1;
+        .course-recommend-Image{
+          height: 100%;
+          width: 100%;
+        }
+      }
+      .course-recommend-Info-box{
+        flex: 2;
+        padding: 0 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .course-recommend-info-tip{
+          font-size: 20px;
+          bottom: 0;
+          .course-recommend-bth{
+            float: right;
+            border-radius: 25px;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}

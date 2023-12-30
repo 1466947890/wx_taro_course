@@ -1,0 +1,30 @@
+@import "~taro-ui/dist/style/components/avatar.scss";
+@import "~taro-ui/dist/style/components/list.scss";
+@import "~taro-ui/dist/style/components/icon.scss";
+
+.index {
+  height: 100%;
+  .backgroud {
+    height: 300px;
+  }
+  .personal {
+    height: 100%;
+    background-color: #ffff;
+    border-radius: 70px;
+    padding: 0 50px;
+    .personal-avatar {
+      height: 230px;
+      display: flex;
+      justify-content: left;
+      align-items: center;
+      .btn_avatar{
+        background-color: #ffff;
+        color: #ffff;
+        border-radius: 50%;
+      }
+    }
+    .btn_box {
+      margin-top: 80px;
+    }
+  }
+}
