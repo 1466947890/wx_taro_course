@@ -53,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/login","/admin/login", "/web/login","/file/**").permitAll()
 //                .antMatchers("/admin/**").hasRole("ROLE_ADMIN")
-                .anyRequest().authenticated();
+                .antMatchers("/web/**", "/**").authenticated();
         http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
         http.exceptionHandling().accessDeniedHandler(simpleAccessDeniedHandler).authenticationEntryPoint(authenticationEntryPoint);
     }

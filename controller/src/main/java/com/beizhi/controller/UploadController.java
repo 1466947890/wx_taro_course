@@ -48,7 +48,7 @@ public class UploadController {
         File uploadFile = new File((fileUploadPath + fileUuid));
         // 把获取到的文件存到磁盘里面去
         file.transferTo(uploadFile);
-        String url = String.valueOf(request.getRequestURL()).replace("upload/", "");
+        String url = String.valueOf(request.getRequestURL()).replace("upload", "");
         return url + fileUuid;
     }
 

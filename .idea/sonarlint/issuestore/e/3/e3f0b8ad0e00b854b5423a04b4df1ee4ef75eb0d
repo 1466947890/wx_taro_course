@@ -1,9 +1,8 @@
 
-i	java:S116%"TRename this field "LOGIN_URL" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷™ãÒ
-@	java:S1068"+Replace this use of System.out by a logger.(Ïúâ›
-[
-java:S3252<"EUse static access with "com.alibaba.fastjson.JSON" for "parseObject".(ˆê…¸
->
-java:S1940E")Use the opposite operator ("!=") instead.(„ÁöR
-D
-java:S1940H")Use the opposite operator ("!=") instead.(ÇÛüÿÿÿÿ
+p	java:S116%"TRename this field "LOGIN_URL" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷™ãÒ8»ÑÅ–Í1
+b
+java:S3252;"EUse static access with "com.alibaba.fastjson.JSON" for "parseObject".(ˆê…¸8ÔÑÅ–Í1
+E
+java:S1940D")Use the opposite operator ("!=") instead.(„ÁöR8ÕÑÅ–Í1
+K
+java:S1940G")Use the opposite operator ("!=") instead.(ÇÛüÿÿÿÿ8ÖÑÅ–Í1

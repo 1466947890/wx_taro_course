@@ -17,6 +17,8 @@
     <module>dao</module>
     <module>common</module>
     <module>entity</module>
+    <module>wx_api</module>
+    <module>web_api</module>
   </modules>
 <!--  设置springboot父级-->
   <parent>
@@ -37,11 +39,26 @@
       <scope>test</scope>
     </dependency>
 
+<!--    &lt;!&ndash;热部署&ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>org.springframework.boot</groupId>-->
+<!--      <artifactId>spring-boot-devtools</artifactId>-->
+<!--      <scope>runtime</scope>-->
+<!--      <optional>true</optional>-->
+<!--    </dependency>-->
+
+
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>1.18.20</version>
       <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+      <optional>true</optional>
     </dependency>
 
 <!--    测试框架-->

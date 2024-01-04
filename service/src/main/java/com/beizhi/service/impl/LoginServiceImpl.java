@@ -53,7 +53,6 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public Result getOpenId(CodeDto codeDto) {
-        System.out.println(codeDto);
         String urlStr = LOGIN_URL + "?js_code=" + codeDto.getCode();
         String params = "appid=" + appid + "&" + "secret=" + secret;
         String result = RequestUtils.RequestPost(urlStr, params).getData();
@@ -80,6 +79,7 @@ public class LoginServiceImpl implements LoginService {
             userMapper.update(user, queryWrapper);
             user.setId(userdata.getId());
         }
+
         /**
          * 返回userid和token信息，最后再请求用户信息
          */
@@ -106,6 +106,7 @@ public class LoginServiceImpl implements LoginService {
 
         User user = new User();
         BeanUtils.copyProperties(userInfoDto, user);
+
         user.setIsReal(Constants.inReview);
         user.setMajorId(major.getId());
         if(userMapper.updateById(user) == 0){
