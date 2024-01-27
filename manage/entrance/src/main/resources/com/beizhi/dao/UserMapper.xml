@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beizhi.dao.UserMapper">
+    <select id="getPage" resultType="com.beizhi.entity.User">
+        select
+            u.id,
+            u.name,
+            u.sex,
+            u.phone,
+            u.avatar,
+            u.role,
+            u.nickname,
+            u.register_time,
+            u.is_real,
+            m.name as major from c_user u left join c_major m on u.major_id = m.id
+        <where>
+            <if test="name != '' ">
+                u.name like  concat('%', #{name} ,'%')
+            </if>
+            <if test="name != '' and isReal != -2 ">
+                and
+            </if>
+            <if test="isReal != -2">
+                u.is_real = #{isReal}
+            </if>
+        </where>
+    </select>
+</mapper>

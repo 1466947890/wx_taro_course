@@ -1,0 +1,30 @@
+.teacher_index_coures {
+  width: 100%;
+  height: 100%;
+  .course_list_box {
+    width: 1300px;
+    // margin: 50px 50px;
+    // margin: 50px auto;
+    .course_box {
+      width: 400px;
+      float: left;
+      margin: 0 15px 15px 0;
+      .course_img {
+        height: 100px;
+        float: left;
+      }
+      .course_info {
+        float: left;
+        margin-left: 40px;
+        .course_title{
+          width: 200px;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 3;
+          overflow: hidden;
+        }
+      }
+    }
+  }
+}

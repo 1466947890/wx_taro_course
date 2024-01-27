@@ -1,0 +1,14 @@
+.avatar_box{
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.personal_info{
+  .btn_box{
+    margin: 30px;
+    .btn{
+      margin-bottom: 25px;
+    }
+  }
+}

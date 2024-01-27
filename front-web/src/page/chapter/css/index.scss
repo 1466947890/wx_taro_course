@@ -1,0 +1,27 @@
+.chapter_index{
+  height: 100%;
+  .layout_box{
+    height: 100%;
+    overflow: hidden;
+    .layout_header{
+      background-color: white;
+    }
+    .layout_content{
+      padding: 20px 50px;
+      overflow-y: auto;
+      min-width: 500px;
+      .video_box{
+        max-width: 1200px;
+        min-width: 300px;
+        height: 500px;
+        overflow: hidden;
+        margin: 15px auto;
+      }
+    }
+    .layout_sider{
+      .layout_list{
+        height: 100%;
+      }
+    }
+  }
+}

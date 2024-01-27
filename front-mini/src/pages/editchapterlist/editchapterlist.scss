@@ -1,0 +1,16 @@
+.second{
+  padding-left: 80px;
+}
+.Index{
+  .list{
+    overflow-y: auto;
+    height: 100%;
+    z-index: 1;
+  }
+  .btn_box{
+    position: fixed;
+    z-index: 5;
+    bottom: 50px;
+    right: 50px;
+  }
+}

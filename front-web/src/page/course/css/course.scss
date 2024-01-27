@@ -1,0 +1,22 @@
+.course_index{
+  height: 100%;
+  .layout_box{
+    height: 100%;
+    .layout_header{
+      background-color: white;
+    }
+    .layout_content{
+      padding: 15px;
+    }
+  }
+  .course_chapter{
+    .chapter_header{
+      margin-bottom: 15px;
+      color: rgba(0, 0, 0, 0.45);
+      font-weight: 500;
+    }
+  }
+  // .course_menu{
+  //   padding: 0 100px;
+  // }
+}
