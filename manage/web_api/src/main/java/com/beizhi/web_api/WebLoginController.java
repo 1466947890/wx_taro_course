@@ -19,8 +19,6 @@ public class WebLoginController {
 
     @Resource
     private LoginService loginService;
-
-
     /**
      * 网页端登录
      * @param userLoginDto
