@@ -21,9 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -192,17 +190,9 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Override
     public Result calculate(Integer courseId) {
         // 获取所有属于这个课程的章节列表
-        LambdaQueryWrapper<Chapter> chapterLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        chapterLambdaQueryWrapper.eq(Chapter::getCourseId, courseId);
-        List<Chapter> chapterList = chapterMapper.selectList(chapterLambdaQueryWrapper);
-
-        List<Integer> chapterIdList = chapterList.stream().map(Chapter::getId).collect(Collectors.toList());
+        List<Integer> chapterIdList = courseChapters(courseId);
         // 获取这个课程的所有学生的用户ID
-        LambdaQueryWrapper<StudentCourse> studentCourseLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        studentCourseLambdaQueryWrapper.eq(StudentCourse::getCourseId, courseId);
-        List<StudentCourse> studentCourses = studentCourseGradeMapper.selectList(studentCourseLambdaQueryWrapper);
-        List<Integer> studentIdList = studentCourses.stream().map(StudentCourse::getStudentId).collect(Collectors.toList());
-
+        List<Integer> studentIdList = courseStudents(courseId);
         // 计算单个学生的这个课程的成绩，然后写入
         for(Integer studentId : studentIdList){
             BigDecimal total = new BigDecimal(0);
@@ -232,5 +222,65 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         }
 
         return Result.success(Constants.OPERATION_SUCCESS);
+    }
+
+    /**
+     * 获取一个课程的单个学生的学习进度
+     * @param courseId 课程ID
+     * @param studentId 学生ID
+     * @return
+     */
+    @Override
+    public Result studentCourseProcess(Integer courseId, Integer studentId) {
+//        System.out.println(courseId);
+//        System.out.println(studentId);
+        LambdaQueryWrapper<Chapter> chapterLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        chapterLambdaQueryWrapper.eq(Chapter::getCourseId, courseId);
+        List<Chapter> chapterList = chapterMapper.selectList(chapterLambdaQueryWrapper);
+        List<Map<String, String>>  process = new ArrayList<>();
+        for(Chapter chapter : chapterList){
+            LambdaQueryWrapper<StudentProcess> studentProcessLambdaQueryWrapper = new LambdaQueryWrapper<>();
+            studentProcessLambdaQueryWrapper.eq(StudentProcess::getStudentId, studentId);
+            studentProcessLambdaQueryWrapper.eq(StudentProcess::getChapterId, chapter.getId());
+            StudentProcess studentProcess = studentProcessMapper.selectOne(studentProcessLambdaQueryWrapper);
+            Map<String, String> map = new HashMap<>();
+//            System.out.println(studentProcess);
+            if(Objects.isNull(studentProcess)){
+                map.put("videoProcess", "0");
+                map.put("examineGrade", "0");
+                map.put("chapterName", chapter.getName());
+            }else{
+                map.put("videoProcess", studentProcess.getVideoProcess().toString());
+                map.put("examineGrade", studentProcess.getExamineGrade().toString());
+                map.put("chapterName", chapter.getName());
+            }
+            process.add(map);
+        }
+//        System.out.println(process);
+        return Result.successData(process);
+    }
+
+    /**
+     * 通过课程ID获取一个课程下的所有章节ID数组
+     * @param courseId
+     * @return
+     */
+    private List<Integer> courseChapters(Integer courseId){
+        LambdaQueryWrapper<Chapter> chapterLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        chapterLambdaQueryWrapper.eq(Chapter::getCourseId, courseId);
+        List<Chapter> chapterList = chapterMapper.selectList(chapterLambdaQueryWrapper);
+        return chapterList.stream().map(Chapter::getId).collect(Collectors.toList());
+    }
+
+    /**
+     * 通过课程ID获取这个课程下的所有学生ID数组
+     * @param courseId
+     * @return
+     */
+    private List<Integer> courseStudents(Integer courseId){
+        LambdaQueryWrapper<StudentCourse> studentCourseLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        studentCourseLambdaQueryWrapper.eq(StudentCourse::getCourseId, courseId);
+        List<StudentCourse> studentCourses = studentCourseGradeMapper.selectList(studentCourseLambdaQueryWrapper);
+        return studentCourses.stream().map(StudentCourse::getStudentId).collect(Collectors.toList());
     }
 }

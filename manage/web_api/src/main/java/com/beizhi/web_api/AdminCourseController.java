@@ -34,6 +34,11 @@ public class AdminCourseController {
         return courseService.selectPage(pageNum, pageSize, name);
     }
 
+    /**
+     * 更新课程信息
+     * @param course
+     * @return
+     */
     @PutMapping
     public Result updateCourse(@RequestBody Course course){
         courseService.updateById(course);
@@ -69,6 +74,17 @@ public class AdminCourseController {
     @PostMapping("/grade/{courseId}")
     public Result calculateGrade(@PathVariable Integer courseId){
         return courseService.calculate(courseId);
+    }
+
+    /**
+     * 获取一个课程的单个学生的学习进度
+     * @param courseId
+     * @param studentId
+     * @return
+     */
+    @GetMapping("/process/{courseId}/{studentId}")
+    public Result studentCourseProcess(@PathVariable Integer courseId,@PathVariable Integer studentId){
+        return courseService.studentCourseProcess(courseId, studentId);
     }
 
 

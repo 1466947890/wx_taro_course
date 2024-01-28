@@ -18,4 +18,6 @@ public interface CourseService extends IService<Course> {
     Result getGrade(Integer courseId);
 
     Result calculate(Integer courseId);
+
+    Result studentCourseProcess(Integer courseId, Integer studentId);
 }
