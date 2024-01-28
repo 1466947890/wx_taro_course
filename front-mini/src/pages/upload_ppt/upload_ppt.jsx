@@ -1,6 +1,6 @@
 import { View, Text } from "@tarojs/components"
 import { AtList, AtListItem, AtFab } from "taro-ui"
-import "./uploadPPT.scss"
+import "./upload_ppt.scss"
 
 const UploadPPT = () => {
   return (

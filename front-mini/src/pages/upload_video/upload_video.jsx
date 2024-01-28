@@ -2,7 +2,7 @@ import { View, Text } from "@tarojs/components"
 import { AtButton, AtProgress } from "taro-ui"
 import api from "../../constants/api"
 import { chooseVideo, uploadFile } from "../../utils/taroUtils"
-import "./uploadVideo.scss"
+import "./upload_video.scss"
 import { useState } from "react"
 import { getVideoProcess } from "../../utils/interfact"
 

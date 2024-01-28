@@ -15,8 +15,8 @@ import './chapter_task.scss'
 const ChapterTask = () => {
   let router = useRouter()
   let routerParams = router.params
-  routerParams.chapterId = 100000
-  routerParams.courseId = 100004
+  // routerParams.chapterId = 100000
+  // routerParams.courseId = 100004
   const [videoSrc, setVideoSrc] = useState()
   const [videoDuration, setVideoDuration] = useState()
   const [current, setCurrent] = useState(0)

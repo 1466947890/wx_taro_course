@@ -12,7 +12,7 @@ import {
   AtModalAction,
   AtFab
 } from "taro-ui"
-import './editchapterlist.scss'
+import './edit_chapter_list.scss'
 import { useRouter } from "@tarojs/taro"
 import { useEffect, useState } from "react"
 import { deleteChapter, getChapter, saveChapter } from "../../utils/interfact"
@@ -25,7 +25,7 @@ import Taro from "@tarojs/taro"
 
 // 点击进入章节
 const handleClick = (id, value, chapterName) => {
-  To("../editchapter/editChapter?courseId=" + id  +"&chapterId=" + value + "&name=" + chapterName)
+  To("../edit_chapter/edit_chapter?courseId=" + id  +"&chapterId=" + value + "&name=" + chapterName)
 }
 
 // 滑动单元或者章节

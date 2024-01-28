@@ -8,7 +8,7 @@ import {
 } from 'taro-ui'
 import { useState } from "react"
 import Avatar from "../../component/avatar/avatar"
-import './personalInfo.scss'
+import './personal_info.scss'
 import { updateUserInfo, getUserInfo } from "../../utils/interfact"
 const onSubmit = (e) => {
   let userId = Taro.getStorageSync("user").id

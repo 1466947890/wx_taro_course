@@ -4,7 +4,7 @@ import { useRouter } from "@tarojs/taro"
 import { AtNavBar, AtTabs, AtTabsPane, AtGrid } from 'taro-ui'
 import ChapterList from "./children/chapter"
 import Details from "./children/details"
-import './courseSInfo.scss'
+import './course_student.scss'
 import { To } from "../../utils/navigato"
 
 

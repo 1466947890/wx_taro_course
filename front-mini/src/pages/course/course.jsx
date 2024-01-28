@@ -1,6 +1,6 @@
 import { View } from "@tarojs/components"
 import { AtSegmentedControl, AtNavBar, AtActionSheet, AtActionSheetItem } from "taro-ui"
-import CourseList from "../courseList/courseList"
+import CourseList from "../course_list/course_list"
 import { useState } from "react"
 import "./course.scss"
 import { To } from "../../utils/navigato"

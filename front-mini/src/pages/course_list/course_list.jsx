@@ -2,7 +2,7 @@ import { View } from "@tarojs/components"
 import Taro from "@tarojs/taro"
 import { useState, useEffect } from "react"
 import { AtList, AtListItem, AtLoadMore } from "taro-ui"
-import './courseList.scss'
+import './course_list.scss'
 import { getCourse } from "../../utils/interfact"
 import { To } from "../../utils/navigato"
 
@@ -21,9 +21,9 @@ const CourseList = (props) => {
 
   const handleToCourseInfo = (value, name) => {
     switch(type){
-      case 0 : To("../courseSInfo/courseSInfo?courseId=" + value + "&name=" + name) 
+      case 0 : To("../course_student/course_student?courseId=" + value + "&name=" + name) 
       break;
-      case 1 : To("../courseTInfo/courseTInfo?courseId=" + value + "&name=" + name) 
+      case 1 : To("../course_teacher/course_teacher?courseId=" + value + "&name=" + name) 
       break;
       default:
     }

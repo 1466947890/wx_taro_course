@@ -95,7 +95,7 @@ const User = () => {
             </View>
           </View>
           <AtList>
-            <AtListItem title='我的档案' onClick={handleTo.bind(this, "../personalInfo/personalInfo")} arrow='right' iconInfo={{ size: 25, color: '#78A4FA', value: 'calendar', }} />
+            <AtListItem title='我的档案' onClick={handleTo.bind(this, "../personal_info/personal_info")} arrow='right' iconInfo={{ size: 25, color: '#78A4FA', value: 'calendar', }} />
             <AtListItem title='我的课程' onClick={handleTo.bind(this, "../course/course")} arrow='right' iconInfo={{ size: 25, color: '#FF4949', value: 'bookmark', }} />
           </AtList>
           {

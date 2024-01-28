@@ -2,7 +2,7 @@ import { View } from "@tarojs/components"
 import { useRouter } from "@tarojs/taro"
 import { AtNavBar, AtButton, AtGrid  } from 'taro-ui'
 import { To } from "../../utils/navigato"
-import './courseTInfo.scss'
+import './course_teacher.scss'
 
 const CourseTInfo = () => {
   const router = useRouter()
@@ -11,7 +11,7 @@ const CourseTInfo = () => {
 
   }
   const hanleEditChapter = () => {
-    To("../editchapterlist/editchapterlist?id=" + routerParams.id + "&name=" + routerParams.name)
+    To("../edit_chapter_list/edit_chapter_list?id=" + routerParams.id + "&name=" + routerParams.name)
   }
   const handleSelect = (value) => {
     To(value.path)
@@ -28,7 +28,7 @@ const CourseTInfo = () => {
           {
             image: 'https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png',
             value: '章节',
-            path: "../editchapterlist/editchapterlist?id=" + routerParams.courseId + "&name=" + routerParams.name
+            path: "../edit_chapter_list/edit_chapter_list?id=" + routerParams.courseId + "&name=" + routerParams.name
           },
           {
             image: 'https://img20.360buyimg.com/jdphoto/s72x72_jfs/t15151/308/1012305375/2300/536ee6ef/5a411466N040a074b.png',
