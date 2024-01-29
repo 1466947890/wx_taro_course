@@ -5,6 +5,7 @@ import com.beizhi.common.result.Result;
 import com.beizhi.service.LoginService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -15,6 +16,7 @@ import javax.annotation.Resource;
  * @describe
  */
 @RestController
+@RequestMapping("/web")
 public class WebLoginController {
 
     @Resource
@@ -24,7 +26,7 @@ public class WebLoginController {
      * @param userLoginDto
      * @return
      */
-    @PostMapping("/web/login")
+    @PostMapping("/login")
     public Result teacherLogin(@RequestBody UserLoginDto userLoginDto){
         return loginService.login(userLoginDto);
     }

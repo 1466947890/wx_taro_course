@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.beizhi.common.dto.ExamineDto;
 import com.beizhi.common.dto.chapterTask.ChapterTaskDto;
+import com.beizhi.common.dto.chapterTask.VideoInfo;
 import com.beizhi.common.result.Result;
 import com.beizhi.dao.ChapterTaskMapper;
 import com.beizhi.dao.DetailsMapper;
@@ -87,9 +88,13 @@ public class ChapterTaskServiceImpl extends ServiceImpl<ChapterTaskMapper, Chapt
         LambdaQueryWrapper<Details> detailsLambdaQueryWrapper = new LambdaQueryWrapper<>();
         detailsLambdaQueryWrapper.eq(Details::getCourseId, courseId);
         List<Details> details = detailsMapper.selectList(detailsLambdaQueryWrapper);
-
-        if(!videoFlag.isEmpty()){
+        if(Objects.isNull(details)){
+            return Result.successData(taskDto);
+        }
+        if(Objects.nonNull(videoFlag) && !videoFlag.isEmpty()){
             taskDto.setVideoInfo(videoService.getVodUrl(videoFlag));
+        }else{
+            taskDto.setVideoInfo(new VideoInfo());
         }
         taskDto.setTeacherList(teacherList);
         taskDto.setExamineList(examineDtoList);

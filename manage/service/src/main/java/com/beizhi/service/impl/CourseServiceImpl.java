@@ -232,8 +232,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
      */
     @Override
     public Result studentCourseProcess(Integer courseId, Integer studentId) {
-//        System.out.println(courseId);
-//        System.out.println(studentId);
         LambdaQueryWrapper<Chapter> chapterLambdaQueryWrapper = new LambdaQueryWrapper<>();
         chapterLambdaQueryWrapper.eq(Chapter::getCourseId, courseId);
         List<Chapter> chapterList = chapterMapper.selectList(chapterLambdaQueryWrapper);

@@ -30,7 +30,7 @@ public class AdminDetailsController {
     @GetMapping("/page")
     public Result selectPage(@RequestParam Integer pageNum,
                              @RequestParam Integer pageSize,
-                             @RequestParam String name){
+                             @RequestParam(defaultValue = "") String name){
         return detailsService.selectPage(pageNum, pageSize, name);
     }
 

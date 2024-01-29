@@ -39,27 +39,35 @@ public class StudentProcessServiceImpl extends ServiceImpl<StudentProcessMapper,
         Integer studentId = student.getId();
 
         BigDecimal process = BigDecimal.valueOf(current / duration).setScale(0, RoundingMode.HALF_UP);
-        if(process.compareTo(new BigDecimal(1)) > 0) {
+        LambdaQueryWrapper<StudentProcess> studentProcessLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        studentProcessLambdaQueryWrapper.eq(StudentProcess::getStudentId, studentId);
+        studentProcessLambdaQueryWrapper.eq(StudentProcess::getChapterId, chapterId);
+        StudentProcess studentProcess = studentProcessMapper.selectOne(studentProcessLambdaQueryWrapper);
+        if(process.compareTo(new BigDecimal(1)) >= 0) {
+            studentProcess = new StudentProcess();
+            studentProcess.setStudentId(studentId);
+            studentProcess.setChapterId(chapterId);
+            studentProcess.setVideoProcess(new BigDecimal(100));
+            if(Objects.isNull(studentProcess)){
+                studentProcessMapper.insert(studentProcess);
+            }else{
+                studentProcessMapper.update(studentProcess, studentProcessLambdaQueryWrapper);
+            }
+
             return Result.success("视频任务已完成");
         }
 
-        LambdaQueryWrapper<StudentProcess> studentProcessLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        studentProcessLambdaQueryWrapper.eq(StudentProcess::getStudentId, userid);
-        studentProcessLambdaQueryWrapper.eq(StudentProcess::getChapterId, chapterId);
-
-
-        // 先判断数据是否存在，不存在则创建
-        StudentProcess studentProcess = studentProcessMapper.selectOne(studentProcessLambdaQueryWrapper);
+//        StudentProcess studentProcess = studentProcessMapper.selectOne(studentProcessLambdaQueryWrapper);
         if(Objects.isNull(studentProcess)){
             studentProcess = new StudentProcess();
-            studentProcess.setStudentId(userid);
+            studentProcess.setStudentId(studentId);
             studentProcess.setChapterId(chapterId);
             studentProcessMapper.insert(studentProcess);
         }else{
-            if(studentProcess.getVideoProcess().compareTo(new BigDecimal(1)) > 0){
+            if( studentProcess.getVideoProcess().compareTo(new BigDecimal(100)) == 0 || studentProcess.getVideoProcess().compareTo(new BigDecimal(100)) > 0){
                 return Result.success("视频任务已完成");
             }
-            studentProcess.setVideoProcess(process);
+            studentProcess.setVideoProcess(process.multiply(new BigDecimal(100)));
             if(studentProcessMapper.update(studentProcess, studentProcessLambdaQueryWrapper)> 0){
                 return Result.success("记录进度成功");
             }else{
