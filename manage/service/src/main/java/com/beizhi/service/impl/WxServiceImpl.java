@@ -1,8 +1,21 @@
 package com.beizhi.service.impl;
 
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.beizhi.common.baseError.BaseErrorEnum;
+import com.beizhi.common.baseError.BusinessException;
 import com.beizhi.common.result.Result;
+import com.beizhi.common.result.ResultEnum;
+import com.beizhi.common.utils.JwtUtils;
 import com.beizhi.common.utils.RedisCache;
+import com.beizhi.dao.CourseMapper;
+import com.beizhi.dao.StudentCourseGradeMapper;
+import com.beizhi.dao.StudentMapper;
+import com.beizhi.entity.Course;
+import com.beizhi.entity.Student;
+import com.beizhi.entity.StudentCourse;
 import com.beizhi.service.WxService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,16 +25,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import javax.servlet.http.HttpServletRequest;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -34,10 +42,18 @@ public class WxServiceImpl implements WxService {
     @Resource
     private RedisCache redisCache;
 
+    @Value("${files.upload.path}")
+    private String fileUploadPath;
     @Value("${wx.appid}")
     private  String appid;
     @Value("${wx.secret}")
     private  String secret;
+    @Resource
+    private CourseMapper courseMapper;
+    @Resource
+    private StudentMapper studentMapper;
+    @Resource
+    private StudentCourseGradeMapper studentCourseGradeMapper;
 
     @Override
     public Result getQrImage(String scene, String page) {
@@ -72,13 +88,31 @@ public class WxServiceImpl implements WxService {
                 while ((rc = inputStream.read(buff, 0, 1024)) > 0) {
                     swapStream.write(buff, 0, rc);
                 }
+
+//                System.out.println(swapStream);
                 data = swapStream.toByteArray();
-                result = new String(Base64.getEncoder().encode(data));
-                result = "data:image/jpeg;base64," + result;
+                File dir = new File(fileUploadPath + "/invite");
+                if(!dir.isDirectory()){
+                    dir.mkdir();
+                }
 
-                return Result.successData(result);
+                String uuid = IdUtil.fastSimpleUUID();
+                String fileUuid = uuid + StrUtil.DOT + "jpg";
+                File uploadFile = new File((fileUploadPath + fileUuid));
+
+                FileOutputStream fileOutputStream = new FileOutputStream(uploadFile);
+                fileOutputStream.write(data);
+
+                // todo 解决获取本地化自动获取域名
+                String path = "http://localhost:9092/file/" + fileUuid;
+                System.out.println(path);
+//                result = new String(Base64.getEncoder().encode(data));
+//                result = "data:image/jpeg;base64," + result;
+                fileOutputStream.flush();
+                fileOutputStream.close();
+                return Result.successData(path);
             } catch (Exception e) {
-
+                e.printStackTrace();
             } finally {
                 try {
                     if (inputStream != null) {
@@ -94,6 +128,49 @@ public class WxServiceImpl implements WxService {
         }
         return null;
 
+    }
+
+    @Override
+    public Result joinCourseByCourseId(Integer courseId, HttpServletRequest request) {
+        Integer userId = JwtUtils.getUserIdByRequest(request);
+        //        判断课程存不存在
+        LambdaQueryWrapper<Course> courseLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        courseLambdaQueryWrapper.eq(Course::getId, courseId);
+        Course course = courseMapper.selectOne(courseLambdaQueryWrapper);
+        if(Objects.isNull(course)){
+            throw new BusinessException(BaseErrorEnum.COURSE_NOT_EXIST);
+        }
+
+        // 查询用户的学号
+        LambdaQueryWrapper<Student> studentLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        studentLambdaQueryWrapper.eq(Student::getUserid, userId);
+        Student student = studentMapper.selectOne(studentLambdaQueryWrapper);
+        if(Objects.isNull(student)){
+            student = new Student();
+            student.setUserid(userId);
+            studentMapper.insert(student);
+        }
+//        判断学生是否已经在课程中
+        LambdaQueryWrapper<StudentCourse> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(StudentCourse::getCourseId, courseId);
+        queryWrapper.eq(StudentCourse::getStudentId, student.getId());
+        List<StudentCourse> studentCourseGradeList = studentCourseGradeMapper.selectList(queryWrapper);
+        if(!studentCourseGradeList.isEmpty()){
+            throw new BusinessException(BaseErrorEnum.STUDENT_EXIST);
+        }
+//        先插入学生表
+        StudentCourse studentCourse = new StudentCourse();
+        studentCourse.setStudentId(student.getId());
+        studentCourse.setCourseId(courseId);
+
+//        插入
+        studentCourseGradeMapper.insert(studentCourse);
+        return Result.response(ResultEnum.JOIN_COURSE_SUCCESS);
+    }
+
+    @Override
+    public Result getCourseInfoById(Integer courseId) {
+        return Result.successData(courseMapper.selectById(courseId));
     }
 
     public String getAccessToken() {
@@ -114,8 +191,6 @@ public class WxServiceImpl implements WxService {
                 while ((inputStream.read(buffer)) != -1){
                     stream.write(buffer);
                 }
-//                System.out.println(stream.toString("UTF-8"));
-
                 JSONObject resJSONObj = JSONObject.parse(stream.toString("UTF-8"));
                 String accessToken = resJSONObj.getString("access_token");
                 inputStream.close();

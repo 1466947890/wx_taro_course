@@ -13,6 +13,7 @@ public enum BaseErrorEnum implements BaseErrorInfoInterface{
     CHAPTER_EXIST(500, "章节名称已存在"),
     STUDENT_EXIST(500, "学生已存在"),
 
+    // 课程不存在
     COURSE_NOT_EXIST(Constants.CODE_500, "课程不存在"),
     UPLOAD_VIDEO_ERROR(Constants.CODE_500, "上传视频失败"),
     SAVE_ERROR(Constants.CODE_500, "保存失败"),

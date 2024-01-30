@@ -42,7 +42,7 @@ public class CourseController {
 
     /**
      * 学生添加课程
-     * @param courseGrade
+     * @param courseGrade 学生信息
      * @param request
      * @return
      */
