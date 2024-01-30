@@ -1,7 +1,10 @@
 export default defineAppConfig({
   // lazyCodeLoading: "requiredComponents",
   pages: [
+    'pages/invite/invite', // 邀请二维码界面
     'pages/user/user', // 用户中心页面
+
+
     'pages/chapter_task/chapter_task', // 学生章节页面
     'pages/course/course', // 课程页面
     "pages/upload_ppt/upload_ppt",

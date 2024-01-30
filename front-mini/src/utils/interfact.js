@@ -1,5 +1,7 @@
 import { postJSON, putJSON, getJSON, deleteJSON } from "./request";
 import api from "../constants/api";
+import config from "../config";
+import { message } from "taro-ui";
 
 
 export const login = async (params) => {
@@ -153,5 +155,21 @@ export const getNotes = async (chapterId) => {
     console.log(message);
   })
   return result.data;
+}
+
+export const getInvitationQrImage = async (courseId) => {
+  let result = await getJSON(api.qrImg, {page: config.invitation_page,scene:courseId}).catch(message => {
+    console.log("获取课程信息接口出错了，错误信息如下：");
+    console.log(message);
+  })
+  return result.data
+}
+
+export const getInvitation = async (courseId) => {
+  let result = await getJSON(api.courseInfo + "/" + courseId).catch(message => {
+    console.log("获取课程信息接口出错了，错误信息如下：");
+    console.log(message);
+  })
+  return result.data
 }
 

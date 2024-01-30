@@ -14,6 +14,10 @@ const catalog = {
   notes: rootPath + "/notes"
 }
 
+const wx_catalog = {
+  invitation: rootPath + "/wx/invitation"
+}
+
 const api = {
   login:  rootPath + "/login",
   upload: catalog.file + "/upload",
@@ -28,7 +32,10 @@ const api = {
   message: catalog.message,
   grade: catalog.examine + "/grade",
   process: catalog.process,
-  notes: catalog.notes
+  notes: catalog.notes,
+
+  courseInfo: wx_catalog.invitation + "/courseInfo",
+  qrImg: wx_catalog.invitation + "/qrImage"
 }
 
 export default api
