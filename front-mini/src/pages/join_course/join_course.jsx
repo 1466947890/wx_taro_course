@@ -13,7 +13,6 @@ const JoinCourse = () => {
     setCourseId(value)
   }
   const onSubmit = (e) => {
-    // console.log(e[0].detail.value);
     saveCourseStudent(e[0].detail.value).then(res => {
       if(res.code === 200){
         ToastSuccess(res.msg)

@@ -13,4 +13,5 @@ public interface LoginService {
 
     Result login(UserLoginDto userLoginDto);
 
+    Result Wxlogin(String phone, String password);
 }

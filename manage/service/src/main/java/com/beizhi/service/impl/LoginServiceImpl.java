@@ -20,6 +20,7 @@ import com.beizhi.service.LoginService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -57,7 +58,6 @@ public class LoginServiceImpl implements LoginService {
         String params = "appid=" + appid + "&" + "secret=" + secret;
         String result = RequestUtils.RequestPost(urlStr, params).getData();
         JSONObject userOpenId = JSONObject.parseObject(result);
-
 //        查询是否存在用户的openId
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(User::getOpenId, userOpenId.getString(Constants.openid));
@@ -131,6 +131,31 @@ public class LoginServiceImpl implements LoginService {
             throw new BusinessException(BaseErrorEnum.USER_PASSWORD_ERROR);
         }
 
+        if(Objects.isNull(authenticate)){
+            throw new BusinessException(BaseErrorEnum.USER_PASSWORD_ERROR);
+        }
+
+        LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
+        User user = loginUser.getUser();
+        String token = JwtUtils.sign(user);
+        redisCache.setCacheObject("login:" + user.getId(), loginUser);
+        Map<String, String> data = new HashMap<>();
+        data.put("token", token);
+        data.put("role", user.getRole());
+
+        return Result.successData("登录成功", data);
+    }
+
+    @Override
+    public Result Wxlogin(String phone, String password){
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(phone, password);
+        Authentication authenticate = null;
+        try {
+            authenticate = authenticationManager.authenticate(authenticationToken);
+        } catch (AuthenticationException e) {
+            throw new BusinessException(BaseErrorEnum.USER_PASSWORD_ERROR);
+        }
 
         if(Objects.isNull(authenticate)){
             throw new BusinessException(BaseErrorEnum.USER_PASSWORD_ERROR);
@@ -146,5 +171,8 @@ public class LoginServiceImpl implements LoginService {
 
         return Result.successData("登录成功", data);
     }
+
+
+
 
 }

@@ -10,6 +10,7 @@ import com.beizhi.common.result.Result;
 import com.beizhi.common.result.ResultEnum;
 import com.beizhi.common.utils.JwtUtils;
 import com.beizhi.common.utils.RedisCache;
+import com.beizhi.common.utils.WxUtils;
 import com.beizhi.dao.CourseMapper;
 import com.beizhi.dao.StudentCourseGradeMapper;
 import com.beizhi.dao.StudentMapper;
@@ -54,12 +55,15 @@ public class WxServiceImpl implements WxService {
     private StudentMapper studentMapper;
     @Resource
     private StudentCourseGradeMapper studentCourseGradeMapper;
+    @Resource
+    private WxUtils wxUtils;
 
     @Override
     public Result getQrImage(String scene, String page) {
 
         //获取小程序access_token
-        String accessToken=getAccessToken();
+        String accessToken = wxUtils.getAccessToken();
+
         String result = null;
 
         // 获取小程序二维码
@@ -105,7 +109,7 @@ public class WxServiceImpl implements WxService {
 
                 // todo 解决获取本地化自动获取域名
                 String path = "http://localhost:9092/file/" + fileUuid;
-                System.out.println(path);
+//                System.out.println(path);
 //                result = new String(Base64.getEncoder().encode(data));
 //                result = "data:image/jpeg;base64," + result;
                 fileOutputStream.flush();

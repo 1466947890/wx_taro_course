@@ -41,8 +41,8 @@ public class WxInvitationController {
      * @param request  来自请求
      * @return
      */
-    @PostMapping("/join")
-    public Result joinCourseById(@RequestParam Integer courseId, HttpServletRequest request){
+    @PostMapping("/join/{courseId}")
+    public Result joinCourseById(@PathVariable Integer courseId, HttpServletRequest request){
         return wxService.joinCourseByCourseId(courseId, request);
     }
 

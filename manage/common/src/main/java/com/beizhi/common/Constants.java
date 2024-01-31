@@ -21,6 +21,10 @@ public interface Constants {
 
     String video_process_pre = "process:";
 
+    String LOGIN_URL = "https://api.weixin.qq.com/sns/jscode2session";
+
+    String PHONE_URL = "https://api.weixin.qq.com/wxa/business/getuserphonenumber";
+
     // 审核中
     Integer inReview = 1;
 }

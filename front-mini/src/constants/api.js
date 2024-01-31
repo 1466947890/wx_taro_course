@@ -35,7 +35,8 @@ const api = {
   notes: catalog.notes,
 
   courseInfo: wx_catalog.invitation + "/courseInfo",
-  qrImg: wx_catalog.invitation + "/qrImage"
+  qrImg: wx_catalog.invitation + "/qrImage",
+  join: wx_catalog.invitation + "/join"
 }
 
 export default api

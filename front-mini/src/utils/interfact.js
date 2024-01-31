@@ -125,7 +125,7 @@ export const getMessage = async (chapterId) => {
   return result.data;
 }
 
-export const getChapterExamineGrade = async (chapterId,params) => {
+export const getChapterExamineGrade = async (chapterId, params) => {
   let result = await postJSON(api.grade + "/" + chapterId, params).catch(message => {
     console.log("章节打分接口出错了，错误信息如下：");
     console.log(message);
@@ -133,7 +133,7 @@ export const getChapterExamineGrade = async (chapterId,params) => {
   return result.data;
 }
 
-export const recordVideoProcess = async (chapterId,duration, current) => {
+export const recordVideoProcess = async (chapterId, duration, current) => {
   let result = await postJSON(api.process + "/" + chapterId + "/" + duration + "/" + current).catch(message => {
     console.log("记录视频进度接口出错了，错误信息如下：");
     console.log(message);
@@ -158,16 +158,24 @@ export const getNotes = async (chapterId) => {
 }
 
 export const getInvitationQrImage = async (courseId) => {
-  let result = await getJSON(api.qrImg, {page: config.invitation_page,scene:courseId}).catch(message => {
+  let result = await getJSON(api.qrImg, { page: config.invitation_page, scene: courseId }).catch(message => {
+    console.log("获取课程二维码接口出错了，错误信息如下：");
+    console.log(message);
+  })
+  return result.data
+}
+
+export const getCourseInfo = async (courseId) => {
+  let result = await getJSON(api.courseInfo + "/" + courseId).catch(message => {
     console.log("获取课程信息接口出错了，错误信息如下：");
     console.log(message);
   })
   return result.data
 }
 
-export const getInvitation = async (courseId) => {
-  let result = await getJSON(api.courseInfo + "/" + courseId).catch(message => {
-    console.log("获取课程信息接口出错了，错误信息如下：");
+export const joinCourse = async (courseId) => {
+  let result = await postJSON(api.join + "/" + courseId).catch(message => {
+    console.log("加入课程信息接口出错了，错误信息如下：");
     console.log(message);
   })
   return result.data
