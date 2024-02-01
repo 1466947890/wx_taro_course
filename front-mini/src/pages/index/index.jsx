@@ -8,9 +8,6 @@ import './index.scss'
 
 
 const Index = () => {
-  let routerParams = useRouter().params;
-  console.log(routerParams);
-  console.log(111);
   return (
     <View className='index'>
       <View className='at-row at-row__justify--center'>

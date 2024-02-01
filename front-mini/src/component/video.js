@@ -42,10 +42,7 @@ const VideoView = (props) => {
   }
 
   useEffect(() => {
-    console.log("渲染页面");
     return () => {
-      console.log("清除定时器");
-      console.log(intervalHandle.current);
       clearInterval(intervalHandle.current)
     }
 
