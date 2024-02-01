@@ -83,9 +83,13 @@ public class LoginServiceImpl implements LoginService {
         /**
          * 返回userid和token信息，最后再请求用户信息
          */
+        user.setRole("ROLE_USER");
+        LoginUser loginUser = new LoginUser(user);
+        String token = JwtUtils.sign(user);
+        redisCache.setCacheObject("login:" + user.getId(), loginUser);
         Map<String, String> data = new HashMap<>();
-        log.info(String.format("当前登录的用户为【%s】", user.getId()));
-        data.put("token", JwtUtils.sign(user));
+        data.put("token", token);
+        data.put("role", user.getRole());
         return Result.successData(Constants.LOGIN_SUCCESS, data);
     }
 
@@ -142,7 +146,6 @@ public class LoginServiceImpl implements LoginService {
         Map<String, String> data = new HashMap<>();
         data.put("token", token);
         data.put("role", user.getRole());
-
         return Result.successData("登录成功", data);
     }
 

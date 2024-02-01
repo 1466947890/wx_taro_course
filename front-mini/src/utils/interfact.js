@@ -181,3 +181,11 @@ export const joinCourse = async (courseId) => {
   return result.data
 }
 
+
+export const WxLogin = async (data) => {
+  let result = await postJSON(api.wxLogin, data).catch(error => {
+    return Promise.reject(error)
+  })
+  return result.data
+}
+

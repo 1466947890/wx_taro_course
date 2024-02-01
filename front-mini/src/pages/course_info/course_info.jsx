@@ -2,8 +2,9 @@ import { View, Image } from "@tarojs/components"
 import Taro, { useRouter } from "@tarojs/taro"
 import { useEffect, useState } from "react";
 import { AtButton } from "taro-ui";
-import { getCourseInfo } from "../../utils/interfact";
+import { WxLogin, getCourseInfo, joinCourse } from "../../utils/interfact";
 import "./course_info.scss"
+import { ToastSuccess } from "../../utils/toast";
 
 const CourseInfo = () => {
   let { scene } = useRouter().params
@@ -21,9 +22,21 @@ const CourseInfo = () => {
   }, [])
   const getPhoneNumber = (e) => {
     let {code} = e.detail
+    // console.log(code);
+
+    // 先登录，然后加入课程
     Taro.login({
       success(res) {
-        
+        let data = {
+          code: res.code,
+          phoneCode: code
+        }
+        WxLogin(data).then(res => {
+          Taro.setStorageSync('token', res.data.token)
+          joinCourse(scene).then(res => {
+            ToastSuccess(res.msg)
+          })
+        })
       }
     })
   }

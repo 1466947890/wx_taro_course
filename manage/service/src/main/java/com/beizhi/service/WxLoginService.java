@@ -1,5 +1,6 @@
 package com.beizhi.service;
 
+import com.beizhi.common.dto.WxLoginDto;
 import com.beizhi.common.result.Result;
 
 /**
@@ -8,5 +9,5 @@ import com.beizhi.common.result.Result;
  * @describe
  */
 public interface WxLoginService {
-    Result login(String code, String phoneCode);
+    Result login(WxLoginDto wxLoginDto);
 }

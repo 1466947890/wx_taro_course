@@ -1,9 +1,9 @@
 package com.beizhi.wx_api;
 
+import com.beizhi.common.dto.WxLoginDto;
 import com.beizhi.common.result.Result;
 import com.beizhi.service.WxLoginService;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -19,7 +19,14 @@ public class WxUserController {
     private WxLoginService wxLoginService;
 
 
-    public Result login(String code, String phoneCode){
-        return wxLoginService.login(code, phoneCode);
+    /**
+     * 微信登录接口
+     * @param code 登录令牌
+     * @param phoneCode 获取手机号
+     * @return
+     */
+    @PostMapping("/login")
+    public Result login(@RequestBody WxLoginDto wxLoginDto){
+        return wxLoginService.login(wxLoginDto);
     }
 }

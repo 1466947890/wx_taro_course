@@ -10,7 +10,7 @@ const send = (url, data, method) => {
     })
     request.then(res => {
       let data = res.data
-      console.log(data);
+      // console.log(data);
     })
     return request;
   } else {

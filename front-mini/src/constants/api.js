@@ -15,7 +15,8 @@ const catalog = {
 }
 
 const wx_catalog = {
-  invitation: rootPath + "/wx/invitation"
+  invitation: rootPath + "/wx/invitation",
+  user:  rootPath +"/wx/user"
 }
 
 const api = {
@@ -36,7 +37,8 @@ const api = {
 
   courseInfo: wx_catalog.invitation + "/courseInfo",
   qrImg: wx_catalog.invitation + "/qrImage",
-  join: wx_catalog.invitation + "/join"
+  join: wx_catalog.invitation + "/join",
+  wxLogin: wx_catalog.user + "/login"
 }
 
 export default api

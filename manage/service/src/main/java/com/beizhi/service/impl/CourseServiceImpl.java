@@ -86,7 +86,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public Result getCourseListByType(Integer type, Integer userId) {
         List<Integer> courseIdList = new ArrayList<>();
         switch (type){
-
             case 0:
 //                我学的课
                 List<StudentCourse> studentCourseGrades = studentCourseGradeMapper.selectCourseByUserId(userId);
@@ -94,7 +93,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                 break;
             case 1:
 //                我教的课
-
                 List<TeacherCourse> professorList = professorMapper.selectTeacherCourseByUserId(userId);
                 courseIdList =  professorList.stream().map(TeacherCourse::getCourseId).collect(Collectors.toList());
                 break;

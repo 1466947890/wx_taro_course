@@ -31,6 +31,11 @@ const CourseTInfo = () => {
             path: "../edit_chapter_list/edit_chapter_list?id=" + routerParams.courseId + "&name=" + routerParams.name
           },
           {
+            image: 'https://img30.360buyimg.com/jdphoto/s72x72_jfs/t5770/97/5184449507/2423/294d5f95/595c3b4dNbc6bc95d.png',
+            value: '邀请学生',
+            path: "../invite/invite?courseId=" + routerParams.courseId
+          },
+          {
             image: 'https://img20.360buyimg.com/jdphoto/s72x72_jfs/t15151/308/1012305375/2300/536ee6ef/5a411466N040a074b.png',
             value: '资料'
           },
@@ -45,10 +50,6 @@ const CourseTInfo = () => {
           {
             image: 'https://img14.360buyimg.com/jdphoto/s72x72_jfs/t17251/336/1311038817/3177/72595a07/5ac44618Na1db7b09.png',
             value: '邀请教师'
-          },
-          {
-            image: 'https://img30.360buyimg.com/jdphoto/s72x72_jfs/t5770/97/5184449507/2423/294d5f95/595c3b4dNbc6bc95d.png',
-            value: '邀请学生'
           }
         ]
       } />
