@@ -85,11 +85,63 @@ export const changeIsReal = async (userid, isReal) => {
 }
 
 export const getMajorRole = async () => {
-  let res = await http.get(api.majorRole).catch(err => {
+  let res = await http.get(api.adminUserRole).catch(err => {
     console.log("获取专业角色接口出错了");
     return Promise.reject(err)
   })
   return res
 }
+
+
+export const delteUserByid = async (userid) => {
+  let res = await http.delete(api.adminUser + "/" + userid).catch(err => {
+    console.log("删除用户出错了");
+    return Promise.reject(err)
+  })
+  return res
+}
+
+/**
+ * 分页获取专业列表
+ * @param {*} params 
+ * @returns 
+ */
+export const getMajorPage = async (params) => {
+  let res = await http.get(api.adminMajorPage, {params}).catch(err => {
+    return Promise.reject(err)
+  })
+  return res
+}
+
+/**
+ * 分页获取课程列表
+ * @param {*} params 
+ * @returns 
+ */
+export const getCoursePage = async (params) => {
+  let res = await http.get(api.adminCoursePage, {params}).catch(err => {
+    return Promise.reject(err)
+  })
+  return res
+}
+
+export const getVideoPage = async (params) => {
+  let res = await http.get(api.adminVideoPage, {params}).catch(err => {
+    return Promise.reject(err)
+  })
+  return res
+}
+
+export const getDetailsPage = async (params) => {
+  let res = await http.get(api.adminDetailsPage, {params}).catch(err => {
+    return Promise.reject(err)
+  })
+  return res
+}
+
+
+
+
+
 
 

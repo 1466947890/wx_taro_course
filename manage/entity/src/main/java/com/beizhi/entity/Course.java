@@ -15,7 +15,9 @@ public class Course {
     private String image;
 //    课程学分
     private Integer credit;
-//    课程标识
+    // 所属专业ID
+    private Integer majorId;
+//   课程老师
     @TableField(exist = false)
     private String teacherList;
 }

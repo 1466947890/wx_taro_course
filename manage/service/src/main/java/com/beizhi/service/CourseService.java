@@ -20,4 +20,6 @@ public interface CourseService extends IService<Course> {
     Result calculate(Integer courseId);
 
     Result studentCourseProcess(Integer courseId, Integer studentId);
+
+    Result wxIndexData(Integer userid);
 }

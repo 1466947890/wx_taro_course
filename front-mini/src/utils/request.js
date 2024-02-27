@@ -1,4 +1,5 @@
 import Taro from "@tarojs/taro";
+import { ToastError } from "./toast";
 
 const send = (url, data, method) => {
   let token = Taro.getStorageSync("token")
@@ -10,7 +11,10 @@ const send = (url, data, method) => {
     })
     request.then(res => {
       let data = res.data
-      // console.log(data);
+      if(data.code != 200){
+        ToastError(res.data.msg)
+        return Promise.reject(res.data.msg)
+      }
     })
     return request;
   } else {

@@ -19,7 +19,9 @@ public enum BaseErrorEnum implements BaseErrorInfoInterface{
     SAVE_ERROR(Constants.CODE_500, "保存失败"),
 
     SYSTEM_ERROR(Constants.CODE_500, "系统错误"),
-    PARAMETER_ERROR(Constants.CODE_500, "参数错误")
+    PARAMETER_ERROR(Constants.CODE_500, "参数错误"),
+
+    STUDENT_EXIST_COURSE(Constants.CODE_500, "学生存在课程")
     ;
     private Integer code;
 

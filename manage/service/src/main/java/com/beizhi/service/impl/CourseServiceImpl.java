@@ -9,6 +9,7 @@ import com.beizhi.common.Constants;
 import com.beizhi.common.baseError.BaseErrorEnum;
 import com.beizhi.common.baseError.BusinessException;
 import com.beizhi.common.dto.CourseDto;
+import com.beizhi.common.dto.WxIndexDto;
 import com.beizhi.common.result.Result;
 import com.beizhi.common.result.ResultEnum;
 import com.beizhi.dao.*;
@@ -170,7 +171,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     /**
-     * 查询课程学生成绩
+     * 查询学生课程成绩
      * @param courseId
      * @return
      */
@@ -254,6 +255,28 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         }
 //        System.out.println(process);
         return Result.successData(process);
+    }
+
+    @Override
+    public Result wxIndexData(Integer userid) {
+//        先查询用户所属专业
+        User user = userMapper.selectById(userid);
+        if(Objects.isNull(user.getMajorId())){
+            // TODO 返回所有课程
+
+        }
+
+        WxIndexDto wxIndexDto = new WxIndexDto();
+
+        LambdaQueryWrapper<Course> courseLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        courseLambdaQueryWrapper.eq(Course::getMajorId, user.getMajorId());
+        wxIndexDto.setMyCourse(courseMapper.selectList(courseLambdaQueryWrapper));
+
+        LambdaQueryWrapper<Course> unCourseLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        unCourseLambdaQueryWrapper.ne(Course::getMajorId, user.getMajorId());
+        wxIndexDto.setOtherCourse(courseMapper.selectList(unCourseLambdaQueryWrapper));
+
+        return Result.successData(wxIndexDto);
     }
 
     /**

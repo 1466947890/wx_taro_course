@@ -21,8 +21,7 @@ public class WxUserController {
 
     /**
      * 微信登录接口
-     * @param code 登录令牌
-     * @param phoneCode 获取手机号
+     * @param wxLoginDto
      * @return
      */
     @PostMapping("/login")

@@ -20,7 +20,6 @@ import java.util.HashMap;
 public class SimpleAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException {
-        //todo your business
         HashMap<String, Object> map = new HashMap<>(2);
         map.put("uri", request.getRequestURI());
         map.put("msg", "无此权限");

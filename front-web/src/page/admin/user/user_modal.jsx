@@ -54,11 +54,10 @@ export const UpdateUserModal = (props) => {
     })
   }
   const handleOk = () => {
+    // console.log(11);
     form.submit()
-
   }
   const onFinish = (values) => {
-    console.log(values);
   }
   return (
     <Modal

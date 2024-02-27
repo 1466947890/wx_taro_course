@@ -52,7 +52,6 @@ const editChapterList = () => {
   const [chapterList, setChapterList] = useState([])
   const [loadStatus, setLoadStatus] = useState("loading")
   useEffect(() => {
-    // console.log(routerParams);
     let chapterList = getChapter(routerParams.id)
     chapterList.then(res => {
       if (res.code === 200) {

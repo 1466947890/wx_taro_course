@@ -8,6 +8,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 
+/**
+ * @author 14669
+ */
 @Data
 @TableName("c_user")
 public class User {
@@ -30,5 +33,6 @@ public class User {
 
     @TableField(exist = false)
     private String major;
+
     private Integer majorId;
 }

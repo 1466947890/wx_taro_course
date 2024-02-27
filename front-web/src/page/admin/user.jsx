@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react"
-import { changeIsReal, userList } from "../../utils/interface"
+import { changeIsReal, delteUserByid, userList } from "../../utils/interface"
 import { Card, Table, Image, Button, Input, Select, message } from "antd"
 import { UpdateUserModal } from "./user/user_modal"
 import "./css/user.scss"
@@ -130,7 +130,7 @@ const AdminUser = () => {
                (record.isReal === 0 &&  <Button onClick={() => handleChangIsReal(record.id, 1)}>审核通过</Button>)
             }
             <Button type="primary" onClick={() => handleEditOpen(record)}>编辑</Button>
-            <Button type="default" danger>删除</Button>
+            <Button type="default" onClick={() => handleDelete(record.id)} danger>删除</Button>
           </div>
         )
       }
@@ -168,8 +168,13 @@ const AdminUser = () => {
   }
   const handleEditOpen = (record) => {
     setUserInfo(record)
-    // console.log(record);
     setUpdateUserOpen(true)
+  }
+
+  const handleDelete = (userid) => {
+    delteUserByid(userid).then(res => {
+      message.success(res.msg)
+    })
   }
 
   const getModalMsg = (msg) => {

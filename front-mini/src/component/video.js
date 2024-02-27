@@ -6,7 +6,6 @@ const VideoView = (props) => {
   // 当前视频进度
   let time = 60
   let current = 0
-
   let intervalHandle = useRef()
 
   const recode = () => [
@@ -21,22 +20,28 @@ const VideoView = (props) => {
     })
   }
 
-
-
   const onPlay = () => {
     recode()
-
   }
 
+  /**
+   * 视频暂停
+   */
   const onPause = () => {
     clearInterval(intervalHandle.current)
   }
 
+  /**
+   * 视频播放到结尾
+   */
   const onEnded = () => {
     current = props.videoDuration
     recordProcess()
     clearInterval(intervalHandle.currentl)
   }
+  /**
+   * 视频结束
+   */
   const onStop = () => {
     clearInterval(intervalHandle.current)
   }

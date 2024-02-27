@@ -20,3 +20,14 @@ export const redirectTo = (url) => {
     url
   })
 }
+
+export const navigateTo = (url) => {
+  if(!url){
+    console.log("路径不存在");
+    return
+  }
+  Taro.navigateTo({
+    url
+  })
+}
+

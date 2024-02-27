@@ -19,12 +19,17 @@ http.interceptors.request.use((config) => {
   return config
 },
   (error) => {
-    console.log(error);
+    // console.log(error);
     return Promise.reject(error)
   }
 )
 
 http.interceptors.response.use((res) => {
+  // console.log(res.data.code);
+  if(res.data.code !== 200){
+    message.error(res.data.msg)
+    return Promise.reject(res.data.msg)
+  }
   return res.data
 }, (error) => {
   console.log(error.response.status);
@@ -32,8 +37,6 @@ http.interceptors.response.use((res) => {
     message.error("登录信息获取，请重新登录")
     setTimeout(() => {
       window.location.href="/#/login"
-      // console.log(this.props);
-      // navigateTo("/login")
     }, 3000)
   }
   return Promise.reject(error)

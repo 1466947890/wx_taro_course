@@ -177,6 +177,7 @@ export const joinCourse = async (courseId) => {
   let result = await postJSON(api.join + "/" + courseId).catch(message => {
     console.log("加入课程信息接口出错了，错误信息如下：");
     console.log(message);
+    return Promise.reject(message)
   })
   return result.data
 }
@@ -184,6 +185,18 @@ export const joinCourse = async (courseId) => {
 
 export const WxLogin = async (data) => {
   let result = await postJSON(api.wxLogin, data).catch(error => {
+    return Promise.reject(error)
+  })
+  return result.data
+}
+
+
+/**
+ * 
+ * @returns 微信首页数据
+ */
+export const WxIndex = async () => {
+  let result = await getJSON(api.index).catch(error => {
     return Promise.reject(error)
   })
   return result.data

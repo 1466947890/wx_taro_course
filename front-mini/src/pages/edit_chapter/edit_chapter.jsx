@@ -1,4 +1,4 @@
-import { View, Text, } from "@tarojs/components"
+import { View, Text,ScrollView } from "@tarojs/components"
 import VideoView from "../../component/video"
 import "./edit_chapter.scss"
 import { useEffect, useState } from "react"
@@ -29,10 +29,16 @@ import Taro from "@tarojs/taro"
 const EditChapter = () => {
   let router = useRouter()
   let routerParams = router.params
+  if (!routerParams.chapterId) {
+    routerParams.chapterId = 100000
+    routerParams.courseId = 100004
+  }
   const [current, setCurrent] = useState(0)
   const [actionOpen, setActionOpen] = useState(false)
+  const [videoHeight, setVideoHeight] = useState()
   const [videoProcessModalOpen, setVideoProcessModalOpen] = useState(false)
   const [videoProcess, setVideoProcess] = useState(0)
+  const [tabsHeaderHeight, setTabsHeaderHeight] = useState()
   const [windowHeight, setWindowHeight] = useState();
   const [detailsList, setDetailsList] = useState([])
 
@@ -52,13 +58,15 @@ const EditChapter = () => {
   useEffect(() => {
     const getData = async () => await getChapterTask(routerParams.courseId, routerParams.chapterId)
     getData().then(res => {
-      // console.log(res.data);
       setVideoSrc(res.data.videoInfo.url)
       setExamineList(res.data.examineList)
       setDetailsList(res.data.detailsList)
       setExamineList(res.data.examineList)
       setTeacherList(res.data.teacherList)
     })
+
+    getElementHeight(".at-tabs__header")
+    getElementHeight(".video_box")
   }, [])
 
   const handleChangeCurrent = (value) => {
@@ -88,12 +96,23 @@ const EditChapter = () => {
   /**
    * 上传视频
    */
-  Taro.getSystemInfoAsync({
-    success(res) {
-      setWindowHeight(res.windowHeight)
-    }
-  })
-  
+  const getWindowHeight = () => {
+    return Taro.getSystemInfoSync().windowHeight
+  }
+
+  const getElementHeight = (className) => {
+    const query = Taro.createSelectorQuery()
+    query.select(className).boundingClientRect()
+    query.exec((res) => {
+      if (res && res[0]) {
+        className == ".video_box" ? setVideoHeight(res[0].height) : setTabsHeaderHeight(res[0].height)
+      }
+    })
+  }
+  const tabsHeight = () => {
+    console.log(getWindowHeight());
+    return getWindowHeight() - videoHeight - tabsHeaderHeight - 30
+  }
   const uploadVideo = () => {
     console.log("上传视频");
     chooseVideo().then(res => {
@@ -141,8 +160,8 @@ const EditChapter = () => {
   const [examineList, setExamineList] = useState([])
   const [teacherList, setTeacherList] = useState([])
   const tabList = [
-    { title: '课程简介', component: <Introduction teacherList={teacherList}/> },
-    { title: '课程资料', component: <Details  detailsList={detailsList}/> },
+    { title: '课程简介', component: <Introduction teacherList={teacherList} /> },
+    { title: '课程资料', component: <Details detailsList={detailsList} /> },
     { title: '课程习题', component: <ExamineList chapterId={routerParams.chapterId} examineList={examineList} /> },
     { title: '留言讨论', component: <Message chapterId={routerParams.chapterId} /> }]
   const selectList = ["上传视频", "上传习题"]
@@ -169,32 +188,32 @@ const EditChapter = () => {
               tabList.map((item, index) => {
                 return (
                   <AtTabsPane current={current} index={index}>
-                    <View className="tabs_container_box">{item.component}</View>
+                    <ScrollView style={{ height: tabsHeight() + "px" }} scrollY={true} className="tabs_container_box">{item.component}</ScrollView>
                   </AtTabsPane>
                 )
               })
             }
           </AtTabs>
           <View>
-          <AtActionSheet isOpened={actionOpen} onClose={() => setActionOpen(false)} onCancel={() => {
-            setActionOpen(false)
-          }} cancelText='取消' title='上传视频或者习题'>
-            {
-              selectList.map((item, index) => {
-                return (
-                  <AtActionSheetItem onClick={handleSelect.bind(this, index)}>
-                    {item}
-                  </AtActionSheetItem>
-                )
-              })
-            }
-          </AtActionSheet>
-        </View>
-        <VideoProcessModal
-          videoProcessModalOpen={videoProcessModalOpen}
-          ProcessChilrenData={ProcessChilrenData}
-          videoProcess={videoProcess}>
-        </VideoProcessModal>
+            <AtActionSheet isOpened={actionOpen} onClose={() => setActionOpen(false)} onCancel={() => {
+              setActionOpen(false)
+            }} cancelText='取消' title='上传视频或者习题'>
+              {
+                selectList.map((item, index) => {
+                  return (
+                    <AtActionSheetItem onClick={handleSelect.bind(this, index)}>
+                      {item}
+                    </AtActionSheetItem>
+                  )
+                })
+              }
+            </AtActionSheet>
+          </View>
+          <VideoProcessModal
+            videoProcessModalOpen={videoProcessModalOpen}
+            ProcessChilrenData={ProcessChilrenData}
+            videoProcess={videoProcess}>
+          </VideoProcessModal>
         </View>
       </View>
     </View>

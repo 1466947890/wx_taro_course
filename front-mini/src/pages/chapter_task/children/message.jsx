@@ -28,23 +28,18 @@ const Message = (props) => {
     })
   }, [])
   const handleReply = (id, name) => {
-    console.log(id);
+    // console.log(id);
     setReplyId(id)
     setTip("@" + name)
   }
   const handleSaveMessage = () => {
-    /*
-        private String value;
-        private Integer pid;
-        private Integer chapterId;
-    */
     let message = {
       value: messageValue,
       pid: replyId,
       chapterId: props.chapterId
     }
     saveMessage(message).then(res => {
-      console.log(res);
+      // console.log(res);
       getMessageList()
     })
   }
@@ -80,6 +75,7 @@ const Message = (props) => {
       <View className="input_box">
         <View className="input">
           <AtInput
+            title='留言'
             name='value'
             type='text'
             placeholder={tip}

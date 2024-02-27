@@ -109,9 +109,6 @@ public class WxServiceImpl implements WxService {
 
                 // todo 解决获取本地化自动获取域名
                 String path = "http://localhost:9092/file/" + fileUuid;
-//                System.out.println(path);
-//                result = new String(Base64.getEncoder().encode(data));
-//                result = "data:image/jpeg;base64," + result;
                 fileOutputStream.flush();
                 fileOutputStream.close();
                 return Result.successData(path);

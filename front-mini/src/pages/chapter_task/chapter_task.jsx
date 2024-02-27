@@ -15,8 +15,11 @@ import './chapter_task.scss'
 const ChapterTask = () => {
   let router = useRouter()
   let routerParams = router.params
-  // routerParams.chapterId = 100000
-  // routerParams.courseId = 100004
+
+  if (!routerParams.chapterId) {
+    routerParams.chapterId = 100000
+    routerParams.courseId = 100004
+  }
   const [videoSrc, setVideoSrc] = useState()
   const [videoDuration, setVideoDuration] = useState()
   const [current, setCurrent] = useState(0)
@@ -27,8 +30,8 @@ const ChapterTask = () => {
   const [videoHeight, setVideoHeight] = useState()
   const [tabsHeaderHeight, setTabsHeaderHeight] = useState()
   const tabList = [
-    { title: '课程简介', component: <Introduction teacherList={teacherList}/> },
-    { title: '课程资料', component: <Details  detailsList={detailsList}/> },
+    { title: '课程简介', component: <Introduction teacherList={teacherList} /> },
+    { title: '课程资料', component: <Details detailsList={detailsList} /> },
     { title: '课程习题', component: <ExamineList chapterId={routerParams.chapterId} examineList={examineList} /> },
     { title: '留言讨论', component: <Message chapterId={routerParams.chapterId} /> }]
 
@@ -36,7 +39,7 @@ const ChapterTask = () => {
 
 
   useEffect(() => {
-    let {courseId} = routerParams
+    let { courseId } = routerParams
     const getData = async () => await getChapterTask(courseId, routerParams.chapterId)
     getData().then(res => {
       setVideoDuration(parseInt(res.data.videoInfo.duration))
@@ -101,10 +104,13 @@ const ChapterTask = () => {
           </View>
         </View>
       </View>
-      <View className="fab_box">
+      {/* <View className="fab_box">
         <AtFab onClick={() => { To("../message/message?chapterId=" + routerParams.chapterId) }}>
           <Text className='at-fab__icon at-icon at-icon-file-new'></Text>
         </AtFab>
+      </View> */}
+      <View>
+
       </View>
     </View>
   )

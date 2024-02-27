@@ -10,6 +10,12 @@ const catalog = {
   video: "/video",
   details: "/details",
   teacher: "/teacher",
+
+  adminUser: type + "/admin/user",
+  adminMajor: type + "/admin/major",
+  adminCourse: type + "/admin/course",
+  adminVideo: type + "/admin/video",
+  adminDetails: type + "/admin/details"
 }
 
 const api = {
@@ -22,9 +28,20 @@ const api = {
   upload: catalog.file + "/upload/",
   details: catalog.details,
   teacher: catalog.teacher,
-  user_page: catalog.user + "/page",
+  user_page: catalog.adminUser + "/page",
   isReal: catalog.user + "/isReal",
-  majorRole: catalog.user + "/majorRole"
+  majorRole: catalog.user + "/majorRole",
+
+
+
+
+
+  adminUserRole: catalog.adminUser + "/majorRole",
+  adminUser: catalog.adminUser,
+  adminMajorPage: catalog.adminMajor + "/page",
+  adminCoursePage: catalog.adminCourse + "/page",
+  adminVideoPage: catalog.adminVideo + "/page",
+  adminDetailsPage: catalog.adminDetails + "/page"
 }
 
 export default api
