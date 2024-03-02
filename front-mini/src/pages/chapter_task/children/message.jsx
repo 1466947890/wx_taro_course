@@ -1,15 +1,22 @@
 import { View, Text, Button } from "@tarojs/components"
 import { useCallback, useEffect, useState } from "react"
-import { AtInput, AtButton, AtFab } from 'taro-ui'
+import { AtInput, AtButton, AtFab, AtIcon } from 'taro-ui'
 import { useRouter } from "@tarojs/taro"
 import { getMessage, saveMessage } from "../../../utils/interfact"
 
 
 const Message = (props) => {
+  let {getMessageData, messageRandom} = props
   const [replyId, setReplyId] = useState()
   const [tip, setTip] = useState("请留言")
   const [message, setMessage] = useState([])
   const [messageValue, setMessageValue] = useState()
+
+  useEffect(() => {
+    if(messageRandom != 1){
+      getMessageList()
+    }
+  }, [messageRandom])
 
   const getMessageList = useCallback(() => {
     getMessage(props.chapterId).then(res => {
@@ -31,6 +38,7 @@ const Message = (props) => {
     // console.log(id);
     setReplyId(id)
     setTip("@" + name)
+    getMessageData({open: true,replyId: id , replyUser: name})
   }
   const handleSaveMessage = () => {
     let message = {
@@ -39,58 +47,54 @@ const Message = (props) => {
       chapterId: props.chapterId
     }
     saveMessage(message).then(res => {
-      // console.log(res);
       getMessageList()
     })
   }
+
+  const handleOpenMessage = () => {
+    getMessageData({open: true})
+  }
   return (
-    <View className="message_box">
-      {
-        message.length == 0 ? ""
-          :
-          message.map(item => {
-            return (
-              <View onClick={handleReply.bind(this, item.id, item.name)} className="message">
-                <View className="message_details">
-                  <View className="nickname">{item.name} <Text className="time">{item.time}</Text></View>
-                  <View className="message_container">{item.message}</View>
+    <View className="message_box_index">
+      <View className="message_box">
+        {
+          message.length == 0 ? ""
+            :
+            message.map(item => {
+              return (
+                <View onClick={handleReply.bind(this, item.id, item.name)} className="message">
+                  <View className="message_details">
+                    <View className="nickname">{item.name} <Text className="time">{item.time}</Text></View>
+                    <View className="message_container">{item.message}</View>
 
+                  </View>
+                  {
+                    (item.children || []).map(itemNode => {
+                      return (
+                        <View className="message_reply">
+                          <View className="nickname">{itemNode.name} <Text className="time">{itemNode.time}</Text></View>
+                          <View className="message_container">{itemNode.message}</View>
+                        </View>
+                      )
+                    })
+
+                  }
                 </View>
-                {
-                  (item.children || []).map(itemNode => {
-                    return (
-                      <View className="message_reply">
-                        <View className="nickname">{itemNode.name} <Text className="time">{itemNode.time}</Text></View>
-                        <View className="message_container">{itemNode.message}</View>
-                      </View>
-                    )
-                  })
+              )
 
-                }
-              </View>
-            )
-
-          })
-      }
-      <View className="input_box">
-        <View className="input">
-          <AtInput
-            title='留言'
-            name='value'
-            type='text'
-            placeholder={tip}
-            onChange={(value) => setMessageValue(value)}
-            value={messageValue}
-          >
-          </AtInput>
-        </View>
-        <View className="send">
+            })
+        }
+        {/* <View className="send">
           <AtFab onClick={handleSaveMessage}>
             <Text className='at-fab__icon at-icon at-icon-message'></Text>
           </AtFab>
-        </View>
-      </View>
+        </View> */}
 
+      </View>
+      <View onClick={() => handleOpenMessage()} className="message_input_box">
+        <View className="message_input"><Text className="message_input_text">请留下你的心得体会</Text></View>
+        <AtIcon className="message_icon" value='message' size='30' color='#795548'></AtIcon>
+      </View>
     </View>
   )
 }

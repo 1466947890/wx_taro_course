@@ -1,4 +1,6 @@
 .Index {
+  display: flex;
+  flex-direction: column;
   .fab_box{
     position: fixed;
     bottom: 200px;
@@ -18,6 +20,8 @@
   }
   .tabs_box {
     overflow: hidden;
+    height: 100vh;
+    position: relative;
     .tabs_container {
       height: 100%;
       .tabs_container_box {
@@ -66,7 +70,7 @@
 
 .message_box {
   width: 100%;
-  height: 82%;
+  height: 100%;
   overflow-y: auto;
   border-collapse: collapse;
   .message {
@@ -102,11 +106,11 @@
     }
   }
   .input_box {
-    position: fixed;
-    bottom: 20px;
-    width: 93%;
-    display: flex;
-    box-sizing: border-box;
+    // position: fixed;
+    // bottom: 20px;
+    // width: 93%;
+    // display: flex;
+    // box-sizing: border-box;
     // .input {
     //   background-color: #9e9e9e;
     //   border-radius: 25px;
@@ -128,4 +132,49 @@
       vertical-align: bottom;
     }
   }
+}
+
+.send{
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+}
+.message_box_index{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.message_input_box{
+  height: 110px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: solid 0.5px #9e9e9e94;
+  .message_input{
+    width: 70%;
+    height: 70%;
+    background-color: #9e9e9e73;
+    border-radius: 15px;
+    text-align: center;
+    display: table-cell;
+    line-height: 70px;
+    .message_input_text{
+      color: #9e9e9e;
+    }
+  }
+  .message_icon{
+    margin-left: 60px;
+  }
+}
+
+.at-tabs__body{
+  height: 100%;
+  .at-tabs-pane{
+    height: 100%;
+  }
+}
+
+.tabs{
+  display: flex;
+  flex-direction: column;
 }
