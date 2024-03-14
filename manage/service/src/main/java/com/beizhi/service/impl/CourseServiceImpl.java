@@ -9,6 +9,7 @@ import com.beizhi.common.Constants;
 import com.beizhi.common.baseError.BaseErrorEnum;
 import com.beizhi.common.baseError.BusinessException;
 import com.beizhi.common.dto.CourseDto;
+import com.beizhi.common.dto.GradeDto;
 import com.beizhi.common.dto.WxIndexDto;
 import com.beizhi.common.result.Result;
 import com.beizhi.common.result.ResultEnum;
@@ -177,8 +178,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
      */
     @Override
     public Result getGrade(Integer courseId) {
-
-        return null;
+        List<GradeDto> gradeDtoList = studentCourseGradeMapper.selectCourseGrade(courseId);
+        return Result.successData(gradeDtoList);
     }
 
     /**
@@ -240,21 +241,25 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
             studentProcessLambdaQueryWrapper.eq(StudentProcess::getStudentId, studentId);
             studentProcessLambdaQueryWrapper.eq(StudentProcess::getChapterId, chapter.getId());
             StudentProcess studentProcess = studentProcessMapper.selectOne(studentProcessLambdaQueryWrapper);
-            Map<String, String> map = new HashMap<>();
-//            System.out.println(studentProcess);
-            if(Objects.isNull(studentProcess)){
-                map.put("videoProcess", "0");
-                map.put("examineGrade", "0");
-                map.put("chapterName", chapter.getName());
-            }else{
-                map.put("videoProcess", studentProcess.getVideoProcess().toString());
-                map.put("examineGrade", studentProcess.getExamineGrade().toString());
-                map.put("chapterName", chapter.getName());
-            }
+            Map<String, String> map = getStringStringMap(chapter, studentProcess);
             process.add(map);
         }
 //        System.out.println(process);
         return Result.successData(process);
+    }
+
+    private static Map<String, String> getStringStringMap(Chapter chapter, StudentProcess studentProcess) {
+        Map<String, String> map = new HashMap<>();
+        if(Objects.isNull(studentProcess)){
+            map.put("videoProcess", "0");
+            map.put("examineGrade", "0");
+            map.put("chapterName", chapter.getName());
+        }else{
+            map.put("videoProcess", studentProcess.getVideoProcess().toString());
+            map.put("examineGrade", studentProcess.getExamineGrade().toString());
+            map.put("chapterName", chapter.getName());
+        }
+        return map;
     }
 
     @Override
@@ -277,6 +282,27 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         wxIndexDto.setOtherCourse(courseMapper.selectList(unCourseLambdaQueryWrapper));
 
         return Result.successData(wxIndexDto);
+    }
+
+    @Override
+    public Result getUserCourseGrade(Integer courseId, Integer userid) {
+//       先获取用户学生ID
+        LambdaQueryWrapper<Student> studentLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        studentLambdaQueryWrapper.eq(Student::getUserid, userid);
+        Student student = studentMapper.selectOne(studentLambdaQueryWrapper);
+
+//        直接查询课程信息
+        LambdaQueryWrapper<StudentCourse> studentCourseLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        studentCourseLambdaQueryWrapper.eq(StudentCourse::getCourseId, courseId);
+        studentCourseLambdaQueryWrapper.eq(StudentCourse::getStudentId, student.getId());
+        StudentCourse studentCourse = studentCourseGradeMapper.selectOne(studentCourseLambdaQueryWrapper);
+        return Result.successData(studentCourse.getGrade());
+    }
+
+    @Override
+    public Result getGradeByMajorId(Integer majorId) {
+        List<GradeDto> gradeDtoList = studentCourseGradeMapper.selectMajorGrade(majorId);
+        return Result.successData(gradeDtoList);
     }
 
     /**

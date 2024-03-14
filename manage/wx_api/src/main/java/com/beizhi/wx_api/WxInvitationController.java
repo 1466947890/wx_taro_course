@@ -31,8 +31,8 @@ public class WxInvitationController {
      * @return
      */
     @GetMapping("/qrImage")
-    public Result getQrImage(@RequestParam String scene,@RequestParam String page){
-        return wxService.getQrImage(scene, page);
+    public Result getQrImage(@RequestParam String scene,@RequestParam String page, HttpServletRequest request){
+        return wxService.getQrImage(scene, page, request);
     }
 
     /**

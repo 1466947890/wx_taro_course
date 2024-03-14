@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
  * @describe
  */
 public interface WxService {
-    Result getQrImage(String scene, String page);
+    Result getQrImage(String scene, String page, HttpServletRequest request);
 
     Result joinCourseByCourseId(Integer courseId, HttpServletRequest request);
 

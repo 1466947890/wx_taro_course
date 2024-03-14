@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beizhi.dao.StudentCourseGradeMapper">
+    <select id="selectCourseGrade" parameterType="Integer" resultType="com.beizhi.common.dto.GradeDto">
+        select
+            s.id,
+            u.name,
+            sc.grade
+        from c_student s
+        join c_student_course sc on sc.student_id = s.id
+        join c_user u on u.id = s.userid where sc.course_id = #{courseId}
+    </select>
+
+    <select id="selectMajorGrade" parameterType="Integer" resultType="com.beizhi.common.dto.GradeDto">
+        select
+            s.id,
+            u.name,
+            sc.grade
+        from c_student s
+        join c_student_course sc on sc.student_id = s.id
+        join c_user u on u.id = s.userid
+        join c_course c on c.id = sc.course_id
+        where c.major_id = #{majorId}
+    </select>
+</mapper>

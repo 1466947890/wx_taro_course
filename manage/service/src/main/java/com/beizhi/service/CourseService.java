@@ -22,4 +22,8 @@ public interface CourseService extends IService<Course> {
     Result studentCourseProcess(Integer courseId, Integer studentId);
 
     Result wxIndexData(Integer userid);
+
+    Result getUserCourseGrade(Integer courseId, Integer userid);
+
+    Result getGradeByMajorId(Integer majorId);
 }

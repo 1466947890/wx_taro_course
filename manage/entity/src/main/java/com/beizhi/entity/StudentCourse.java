@@ -6,6 +6,9 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 
+/**
+ * @author 14669
+ */
 @Data
 @TableName("c_student_course")
 public class StudentCourse {

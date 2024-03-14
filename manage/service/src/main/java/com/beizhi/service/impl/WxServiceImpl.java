@@ -59,8 +59,7 @@ public class WxServiceImpl implements WxService {
     private WxUtils wxUtils;
 
     @Override
-    public Result getQrImage(String scene, String page) {
-
+    public Result getQrImage(String scene, String page, HttpServletRequest request) {
         //获取小程序access_token
         String accessToken = wxUtils.getAccessToken();
 
@@ -92,8 +91,7 @@ public class WxServiceImpl implements WxService {
                 while ((rc = inputStream.read(buff, 0, 1024)) > 0) {
                     swapStream.write(buff, 0, rc);
                 }
-
-//                System.out.println(swapStream);
+                
                 data = swapStream.toByteArray();
                 File dir = new File(fileUploadPath + "/invite");
                 if(!dir.isDirectory()){
@@ -107,8 +105,8 @@ public class WxServiceImpl implements WxService {
                 FileOutputStream fileOutputStream = new FileOutputStream(uploadFile);
                 fileOutputStream.write(data);
 
-                // todo 解决获取本地化自动获取域名
-                String path = "http://localhost:9092/file/" + fileUuid;
+                String urlPath = request.getRequestURL().toString().replace("/wx/invitation/qrImage", "");
+                String path = urlPath + "/file/" + fileUuid;
                 fileOutputStream.flush();
                 fileOutputStream.close();
                 return Result.successData(path);

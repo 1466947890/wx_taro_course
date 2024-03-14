@@ -11,4 +11,5 @@ public interface ChapterService extends IService<Chapter> {
     Result getChapterListByCourseId(Integer courseId);
 
     Result deleteChapterByCourseId(Integer courseId);
+
 }

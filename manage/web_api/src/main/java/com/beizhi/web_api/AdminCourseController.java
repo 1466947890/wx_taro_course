@@ -87,5 +87,12 @@ public class AdminCourseController {
         return courseService.studentCourseProcess(courseId, studentId);
     }
 
+    /**
+     * 获取一个专业的所有学生成绩
+     * @param majorId
+     * @return
+     */
+
+
 
 }
